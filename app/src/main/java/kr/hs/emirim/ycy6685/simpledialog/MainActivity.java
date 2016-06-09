@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     @Override
     public void onClick(View v) {
+        
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         //원래는 쓰이는 액티비티의 객체명.this인데 이건 여기서 쓸거니까 this OK
         dialog.setTitle("First Dialog");
