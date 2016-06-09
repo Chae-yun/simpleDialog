@@ -17,7 +17,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button but;
     String[] items = {"매콤", "상콤", "달콤", "고소", "바삭"};
-    boolean[] checkArr = {false, false, true, false, false};
+    boolean[] checkArr = {false, false, true, false, false}; //미리 선택되어 있는거 버튼에 나타내는 건 귀찮아...
+    String text="";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     @Override
     public void onClick(View v) {
-        
+
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         //원래는 쓰이는 액티비티의 객체명.this인데 이건 여기서 쓸거니까 this OK
         dialog.setTitle("First Dialog");
@@ -45,10 +46,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });*/
 
-        dialog.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+        /*dialog.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) { //which가 배열의 인덱스를 알아
                 but.setText(items[which]);
+            }
+        });*/
+
+        dialog.setMultiChoiceItems(items, checkArr, new DialogInterface.OnMultiChoiceClickListener() {
+            /**
+             * This method will be invoked when an item in the dialog is clicked.
+             *
+             * @param dialog    The dialog where the selection was made.
+             * @param which     The position of the item in the list that was clicked.
+             * @param isChecked True if the click checked the item, else false.
+             */
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                if(isChecked) {
+                    text+=items[which]+"  ";
+                }
+                else {
+                    text=text.replace(items[which]+"  ","");
+                }
+                but.setText(text);
             }
         });
 
